@@ -6,5 +6,22 @@
 </head>
 <body>
 <p th:text = "'Welcome to TWAirline'"/>
+<form method="post" th:action="@{/search}" th:object="${flight}">
+<p th:text="'From: '"/>
+<select class="form-control" id="Source" name="Source" th:field="*{sourceCode}" style="margin-left: 15px;padding-top: 5px;padding-left: 5px;padding-right: 5px;padding-bottom: 5px;">
+        <option value="">Select Source City</option>
+        <option th:each="city : ${cityList}"
+                th:value="${city.getCode()}"
+                th:text="${city.getName()}"></option>
+       </select>
+<p th:text="'To: '"/>
+<select class="form-control" id="Destination" name="Destination" th:field="*{destinationCode}" style="margin-left: 15px;padding-top: 5px;padding-left: 5px;padding-right: 5px;padding-bottom: 5px;">
+        <option value="">Select Destination City</option>
+        <option th:each="city : ${cityList}"
+                th:value="${city.getCode()}"
+                th:text="${city.getName()}"></option>
+</select>
+<input type="submit" value="Search"/>
+</form>
 </body>
 </html>
