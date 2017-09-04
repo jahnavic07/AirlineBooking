@@ -15,7 +15,7 @@
     <tbody>
 
     <tr th:each="flight : ${searchResults}">
-        <td th:text="${flight}"/>
+        <td th:text="${flight.getFlightNumber()}"/>
     </tr>
     </tbody>>
 </table>

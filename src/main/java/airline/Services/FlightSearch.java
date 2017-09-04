@@ -1,31 +1,22 @@
 package airline.Services;
 
 import java.util.*;
+import java.util.stream.Collectors;
+
 import airline.model.Flight;
+import airline.model.SearchCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class FlightSearch {
 
-    public List<String> search(String source, String destination) {
-
-        System.out.println("source: "+source);
-        System.out.println("destn: "+destination);
-
-         List<String> flightList = new ArrayList<String>();
-         FlightInformation flightInformation = new FlightInformation();
-
-        for (Map.Entry<Integer,Flight> entry : (flightInformation.getFlights()).entrySet() ){
-            int key = entry.getKey();
-            Flight myFlight = entry.getValue();
-            System.out.println("Myflightsource: "+myFlight.getSourceCode());
-            System.out.println("Myflight destination: "+myFlight.getDestinationCode());
-            if ((source.equals(myFlight.getSourceCode())) && (destination.equals(myFlight.getDestinationCode()))) {
-                System.out.println("Flight number: "+myFlight.getFlightNumber());
-                flightList.add(myFlight.getFlightNumber());
-            }
-        }
-        return flightList;
+        public List<Flight> search(List<Flight> flightList, SearchCriteria searchCriteria) {
+        /* Included cases where input value is not provided in the front end*/
+        return flightList.stream()
+                .filter(x -> ((searchCriteria.getSourceCode() == "") || x.getSourceCode().equals(searchCriteria.getSourceCode())))
+                .filter(x -> ((searchCriteria.getDestinationCode() == "") || x.getDestinationCode().equals(searchCriteria.getDestinationCode())))
+                .filter(x -> (x.getAvailableSeats() >= searchCriteria.getSeatsRequested())) //Seats requested will always have a default value of 1 if no value passed
+                .collect(Collectors.toList());
     }
 }

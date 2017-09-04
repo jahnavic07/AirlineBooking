@@ -2,26 +2,33 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Getting Started: Serving Web Content</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
-<p th:text = "'Welcome to TWAirline'"/>
-<form method="post" th:action="@{/search}" th:object="${flight}">
-<p th:text="'From: '"/>
-<select class="form-control" id="Source" name="Source" th:field="*{sourceCode}" style="margin-left: 15px;padding-top: 5px;padding-left: 5px;padding-right: 5px;padding-bottom: 5px;">
+<p th:text="'Welcome to TWAirline'"/>
+<form method="post" th:action="@{/search}" th:object="${searchCriteria}">
+    <p th:text="'From: '"/>
+    <select class="form-control" id="Source" name="Source" th:field="*{sourceCode}" required="required">
         <option value="">Select Source City</option>
         <option th:each="city : ${cityList}"
                 th:value="${city.getCode()}"
                 th:text="${city.getName()}"></option>
-       </select>
-<p th:text="'To: '"/>
-<select class="form-control" id="Destination" name="Destination" th:field="*{destinationCode}" style="margin-left: 15px;padding-top: 5px;padding-left: 5px;padding-right: 5px;padding-bottom: 5px;">
+    </select>
+    <p th:text="'To: '"/>
+    <select class="form-control" id="Destination" name="Destination" th:field="*{destinationCode}" required="required">
         <option value="">Select Destination City</option>
         <option th:each="city : ${cityList}"
                 th:value="${city.getCode()}"
                 th:text="${city.getName()}"></option>
-</select>
-<input type="submit" value="Search"/>
+    </select>
+    <p th:text="'Number of Passengers: '"/>
+    <select class="form-control" id="seatsRequested" name="seatsRequested" th:field="*{seatsRequested}">
+        <option value="1">Number Of Passengers</option>
+        <option th:each="n : ${#numbers.sequence(1,9)}"
+                th:value="${n}"
+                th:text="${n}"></option>
+    </select>
+ <input type="submit" value="Submit"/>
 </form>
 </body>
 </html>
