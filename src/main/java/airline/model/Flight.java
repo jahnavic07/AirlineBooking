@@ -1,6 +1,7 @@
 package airline.model;
 
 import java.awt.datatransfer.FlavorListener;
+import java.time.LocalDate;
 
 public class Flight {
     private String flightNumber;
@@ -8,17 +9,19 @@ public class Flight {
     private String destinationCode;
     private int totalSeats;
     private int seatsBooked;
+    private LocalDate departureDate;
 
-    public Flight(String flightNumber, String sourceCode, String destinationCode, int totalSeats, int seatsBooked) {
+    public Flight(String flightNumber, String sourceCode, String destinationCode, int totalSeats, int seatsBooked, LocalDate departureDate) {
         this.flightNumber = flightNumber;
         this.sourceCode = sourceCode;
         this.destinationCode = destinationCode;
         this.totalSeats = totalSeats;
         this.seatsBooked = seatsBooked;
+        this.departureDate = departureDate;
     }
 
     public int getTotalSeats() {
-        return totalSeats;
+        return this.totalSeats;
     }
 
     public void setTotalSeats(int totalSeats) {
@@ -26,13 +29,20 @@ public class Flight {
     }
 
     public int getSeatsBooked() {
-        return seatsBooked;
+        return this.seatsBooked;
     }
 
     public void setSeatsBooked(int seatsBooked) {
         this.seatsBooked = seatsBooked;
     }
 
+    public LocalDate getDepartureDate() {
+        return this.departureDate;
+    }
+
+    public void setDepartureDate(LocalDate departureDate) {
+        this.departureDate = departureDate;
+    }
 
     public String getFlightNumber() {
         return flightNumber;
@@ -57,7 +67,8 @@ public class Flight {
     public void setDestinationCode(String destinationCode) {
         this.destinationCode = destinationCode;
     }
-    public int getAvailableSeats(){
-        return (totalSeats-seatsBooked);
+    public int getAvailableSeats() {
+        return (totalSeats - seatsBooked);
     }
-}
+
+    }
