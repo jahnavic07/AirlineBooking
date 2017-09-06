@@ -6,22 +6,40 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
 import airline.model.Flight;
+import airline.model.Seat;
 import airline.model.SearchCriteria;
 import org.springframework.stereotype.Service;
+
+import java.util.function.Predicate;
 
 @Service
 public class FlightSearch {
 
-        public List<Flight> search(List<Flight> flightList, SearchCriteria searchCriteria) {
 
-          /* Included cases where input value is not provided in the front end*/
+    public List<Flight> search(List<Flight> flightList, SearchCriteria searchCriteria) {
 
-            return flightList.stream()
-                .filter(x -> ((searchCriteria.getSourceCode() == "") || x.getSourceCode().equals(searchCriteria.getSourceCode())))
-                .filter(x -> ((searchCriteria.getDestinationCode() == "") || x.getDestinationCode().equals(searchCriteria.getDestinationCode())))
-                .filter(x -> (x.getAvailableSeats() >= searchCriteria.getSeatsRequested())) //Seats requested will always have a default value of 1 if no value passed
-                .filter(x -> ((searchCriteria.getDepartureDate()== null) ||x.getDepartureDate().equals(LocalDate.parse(searchCriteria.getDepartureDate()))))
+        return flightList.stream()
+                .filter(searchBySource(flightList, searchCriteria))
+                .filter(searchByDestination(flightList, searchCriteria))
+                .filter(searchByDepartureDate(flightList, searchCriteria))
+                .filter(searchByTravelType(flightList, searchCriteria))
                 .collect(Collectors.toList());
 
-        }
+    }
+
+    private Predicate<Flight> searchBySource(List<Flight> flightList, SearchCriteria searchCriteria) {
+        return (x -> ((searchCriteria.getSourceCode() == "") || x.getSourceCode().equals(searchCriteria.getSourceCode())));
+    }
+
+    private Predicate<Flight> searchByDestination(List<Flight> flightList, SearchCriteria searchCriteria) {
+        return (x -> ((searchCriteria.getDestinationCode() == "") || x.getDestinationCode().equals(searchCriteria.getDestinationCode())));
+    }
+
+    private Predicate<Flight> searchByDepartureDate(List<Flight> flightList, SearchCriteria searchCriteria) {
+        return (x -> ((searchCriteria.getDepartureDate() == "") || x.getDepartureDate().equals(LocalDate.parse(searchCriteria.getDepartureDate()))));
+    }
+
+    private Predicate<Flight> searchByTravelType(List<Flight> flightList, SearchCriteria searchCriteria) {
+        return (x -> (x.areSeatsAvailable(searchCriteria.getTypeOfSeat(), searchCriteria.getSeatsRequested())));
+    }
 }

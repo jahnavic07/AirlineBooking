@@ -21,6 +21,13 @@
                 th:value="${city.getCode()}"
                 th:text="${city.getName()}"></option>
     </select>
+    <p th:text="'Travel Class: '"/>
+    <select class="form-control" id="TravelType" name="TravelType" th:field="*{typeOfSeat}" required="required">
+        <option value="">Select Travel Class</option>
+        <option th:each="travelClass : ${T(airline.model.Seat.travelType).values()}"
+                th:value="${travelClass}"
+                th:text="${travelClass}"></option>
+    </select>
     <p th:text="'Number of Passengers: '"/>
     <select class="form-control" id="seatsRequested" name="seatsRequested" th:field="*{seatsRequested}">
         <option value="1">Number Of Passengers</option>
@@ -28,8 +35,8 @@
                 th:value="${n}"
                 th:text="${n}"></option>
     </select>
-    <input type="date" th:field="*{departureDate}"/>
- <input type="submit" value="Submit"/>
+    <input type="date" th:field="*{departureDate}" th:attr="min=${today}"/>
+    <input type="submit" value="Submit"/>
 </form>
 </body>
 </html>

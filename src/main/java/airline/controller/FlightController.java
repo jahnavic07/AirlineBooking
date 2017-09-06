@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
 @SpringBootApplication
 public class FlightController {
     CityRepository cityRepository = new CityRepository();
-    SearchCriteria searchCriteria = new SearchCriteria("BLR","HYD",1,(LocalDate.of(2017, 9,4)));
+    SearchCriteria searchCriteria = new SearchCriteria("BLR","HYD",1,"FIRST");
 
     public static void main(String[] args) {
         SpringApplication.run(FlightController.class, args);
@@ -35,6 +35,7 @@ public class FlightController {
         List<City> cityList = cityRepository.getCityList();
         model.addAttribute("cityList", cityList);
         model.addAttribute("searchCriteria",searchCriteria);
+        model.addAttribute("today",LocalDate.now().toString());
         return "flightSearch";
     }
 

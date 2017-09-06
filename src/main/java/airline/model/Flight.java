@@ -2,38 +2,29 @@ package airline.model;
 
 import java.awt.datatransfer.FlavorListener;
 import java.time.LocalDate;
+import java.util.*;
 
 public class Flight {
     private String flightNumber;
     private String sourceCode;
     private String destinationCode;
-    private int totalSeats;
-    private int seatsBooked;
     private LocalDate departureDate;
+    public List<Seat> seats;
 
-    public Flight(String flightNumber, String sourceCode, String destinationCode, int totalSeats, int seatsBooked, LocalDate departureDate) {
+    public Flight(String flightNumber, String sourceCode, String destinationCode, LocalDate departureDate, List<Seat> seats) {
         this.flightNumber = flightNumber;
         this.sourceCode = sourceCode;
         this.destinationCode = destinationCode;
-        this.totalSeats = totalSeats;
-        this.seatsBooked = seatsBooked;
         this.departureDate = departureDate;
+        this.seats = seats;
     }
 
-    public int getTotalSeats() {
-        return this.totalSeats;
+    public List<Seat> getSeats() {
+        return this.seats;
     }
 
-    public void setTotalSeats(int totalSeats) {
-        this.totalSeats = totalSeats;
-    }
-
-    public int getSeatsBooked() {
-        return this.seatsBooked;
-    }
-
-    public void setSeatsBooked(int seatsBooked) {
-        this.seatsBooked = seatsBooked;
+    public void setSeats(List<Seat> seats) {
+        this.seats = seats;
     }
 
     public LocalDate getDepartureDate() {
@@ -67,8 +58,17 @@ public class Flight {
     public void setDestinationCode(String destinationCode) {
         this.destinationCode = destinationCode;
     }
-    public int getAvailableSeats() {
-        return (totalSeats - seatsBooked);
-    }
 
+    public boolean areSeatsAvailable(String travelType, int requestedSeats) {
+        for (Seat mySeat : seats) {
+            if (mySeat.getTypeOfSeat().equals(travelType) && (mySeat.getAvailableSeats() >= requestedSeats)) {
+                return true;
+            }
+        }
+        return false;
     }
+}
+
+
+
+
