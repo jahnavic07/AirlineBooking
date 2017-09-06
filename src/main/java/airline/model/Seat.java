@@ -1,7 +1,7 @@
 package airline.model;
 
 public class Seat {
-    public enum travelType{BUSINESS,ECONOMY,FIRST};
+    public enum travelType{Business,Economy,First};
     travelType typeOfSeat;
     private int totalSeats;
     private int seatsBooked;

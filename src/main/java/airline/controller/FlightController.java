@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
 @SpringBootApplication
 public class FlightController {
     CityRepository cityRepository = new CityRepository();
-    SearchCriteria searchCriteria = new SearchCriteria("BLR","HYD",1,"FIRST");
+    SearchCriteria searchCriteria = new SearchCriteria();
 
     public static void main(String[] args) {
         SpringApplication.run(FlightController.class, args);
@@ -35,6 +35,7 @@ public class FlightController {
         List<City> cityList = cityRepository.getCityList();
         model.addAttribute("cityList", cityList);
         model.addAttribute("searchCriteria",searchCriteria);
+        model.addAttribute("searchResults",null);
         model.addAttribute("today",LocalDate.now().toString());
         return "flightSearch";
     }
@@ -45,12 +46,13 @@ public class FlightController {
 
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     public String getFlights(@ModelAttribute(value = "searchCriteria") SearchCriteria searchCriteria, Model model) {
-        System.out.println("Source "+searchCriteria.getSourceCode());
-        System.out.println("Destination "+searchCriteria.getDestinationCode());
-        System.out.println("Search date "+searchCriteria.getDepartureDate());
+        List<City> cityList = cityRepository.getCityList();
         List<Flight> availableFlights = flightSearch.search(flightList,searchCriteria);
+        model.addAttribute("cityList", cityList);
         model.addAttribute("searchResults",availableFlights);
-       return "flightsView";
+        model.addAttribute("searchCriteria",searchCriteria);
+        model.addAttribute("today",LocalDate.now().toString());
+        return "flightSearch";
     }
 
 

@@ -43,13 +43,7 @@ public class Flight {
         this.flightNumber = flightNumber;
     }
 
-    public String getSourceCode() {
-        return sourceCode;
-    }
-
-    public void setSourceCode(String sourceCode) {
-        this.sourceCode = sourceCode;
-    }
+    public String getSourceCode() { return this.sourceCode; }
 
     public String getDestinationCode() {
         return destinationCode;
@@ -59,13 +53,20 @@ public class Flight {
         this.destinationCode = destinationCode;
     }
 
-    public boolean areSeatsAvailable(String travelType, int requestedSeats) {
+    public int seatsAvailable(String travelType) {
         for (Seat mySeat : seats) {
-            if (mySeat.getTypeOfSeat().equals(travelType) && (mySeat.getAvailableSeats() >= requestedSeats)) {
-                return true;
-            }
+            if (mySeat.getTypeOfSeat().equals(travelType))
+                return (mySeat.getAvailableSeats());
         }
-        return false;
+        return 0;
+    }
+
+    public boolean startsFrom(String source){
+        return sourceCode.equals(source);
+    }
+
+    public boolean goesTo(String destination){
+        return  destinationCode.equals(destination);
     }
 }
 

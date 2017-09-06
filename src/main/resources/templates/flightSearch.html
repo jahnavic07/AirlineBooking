@@ -3,32 +3,55 @@
 <head>
     <title>Getting Started: Serving Web Content</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style>
+          p {
+            Georgia, serif
+           }
+
+        table{
+            width:80%;
+            border: 1px solid black;
+             border-collapse: collapse;
+        }
+        th{
+            background-color: #4CAF50;
+            color: white;
+            border: 1px solid black;
+               }
+
+         td {
+            width:20%;
+            border: 1px solid black;
+             text-align: center;
+         }
+
+
+
+
+
+    </style>
 </head>
 <body>
 <p th:text="'Welcome to TWAirline'"/>
 <form method="post" th:action="@{/search}" th:object="${searchCriteria}">
-    <p th:text="'From: '"/>
     <select class="form-control" id="Source" name="Source" th:field="*{sourceCode}" required="required">
         <option value="">Select Source City</option>
         <option th:each="city : ${cityList}"
                 th:value="${city.getCode()}"
                 th:text="${city.getName()}"></option>
     </select>
-    <p th:text="'To: '"/>
     <select class="form-control" id="Destination" name="Destination" th:field="*{destinationCode}" required="required">
         <option value="">Select Destination City</option>
         <option th:each="city : ${cityList}"
                 th:value="${city.getCode()}"
                 th:text="${city.getName()}"></option>
     </select>
-    <p th:text="'Travel Class: '"/>
     <select class="form-control" id="TravelType" name="TravelType" th:field="*{typeOfSeat}" required="required">
         <option value="">Select Travel Class</option>
         <option th:each="travelClass : ${T(airline.model.Seat.travelType).values()}"
                 th:value="${travelClass}"
                 th:text="${travelClass}"></option>
     </select>
-    <p th:text="'Number of Passengers: '"/>
     <select class="form-control" id="seatsRequested" name="seatsRequested" th:field="*{seatsRequested}">
         <option value="1">Number Of Passengers</option>
         <option th:each="n : ${#numbers.sequence(1,9)}"
@@ -38,5 +61,30 @@
     <input type="date" th:field="*{departureDate}" th:attr="min=${today}"/>
     <input type="submit" value="Submit"/>
 </form>
+<p/>
+<div th:if="${searchResults}!=null">
+    <table border="0">
+        <thead>
+        <tr>
+            <th>Flight Id</th>
+            <th>Source</th>
+            <th>Destination</th>
+            <th>Departure Date</th>
+            <th>Class</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="flight : ${searchResults}">
+            <td th:text="${flight.flightNumber}"/>
+            <td th:text="${flight.sourceCode}"/>
+            <td th:text="${flight.destinationCode}"/>
+            <td th:text="${flight.departureDate}"/>
+            <td th:text="${searchCriteria.typeOfSeat}"/>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
 </body>
 </html>
