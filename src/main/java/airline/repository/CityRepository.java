@@ -1,8 +1,11 @@
 package airline.repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import airline.model.City;
+import org.springframework.stereotype.Repository;
+
 import java.util.*;
 
+@Repository
 public class CityRepository {
 
     City city;

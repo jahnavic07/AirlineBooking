@@ -4,17 +4,24 @@
     <title>Getting Started: Serving Web Content</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <style>
+
+          h1 {
+                text-align: center;
+                background-color: #4C6A92;
+                color: white;
+            }
           p {
-            Georgia, serif
+            background-color:   #daebe8;
            }
 
         table{
             width:80%;
             border: 1px solid black;
-             border-collapse: collapse;
+            border-collapse: collapse;
+            margin: auto;
         }
         th{
-            background-color: #4CAF50;
+            background-color: #4C6A92;
             color: white;
             border: 1px solid black;
                }
@@ -22,18 +29,15 @@
          td {
             width:20%;
             border: 1px solid black;
-             text-align: center;
+            text-align: center;
          }
 
-
-
-
-
-    </style>
+   </style>
 </head>
-<body>
-<p th:text="'Welcome to TWAirline'"/>
-<form method="post" th:action="@{/search}" th:object="${searchCriteria}">
+<body style="background-color:#daebe8;">
+<h1 th:text="'Welcome to TWAirlines'"></h1>
+<p/>
+<form method="post" th:action="@{/}" th:object="${searchCriteria}">
     <select class="form-control" id="Source" name="Source" th:field="*{sourceCode}" required="required">
         <option value="">Select Source City</option>
         <option th:each="city : ${cityList}"
@@ -48,7 +52,7 @@
     </select>
     <select class="form-control" id="TravelType" name="TravelType" th:field="*{typeOfSeat}" required="required">
         <option value="">Select Travel Class</option>
-        <option th:each="travelClass : ${T(airline.model.Seat.travelType).values()}"
+        <option th:each="travelClass : ${T(airline.model.TravelType).values()}"
                 th:value="${travelClass}"
                 th:text="${travelClass}"></option>
     </select>
@@ -62,7 +66,7 @@
     <input type="submit" value="Submit"/>
 </form>
 <p/>
-<div th:if="${searchResults}!=null">
+<div2 th:if="${searchResults}!=null">
     <table border="0">
         <thead>
         <tr>
@@ -71,20 +75,22 @@
             <th>Destination</th>
             <th>Departure Date</th>
             <th>Class</th>
+            <th>Price</th>
         </tr>
         </thead>
         <tbody>
 
-        <tr th:each="flight : ${searchResults}">
-            <td th:text="${flight.flightNumber}"/>
-            <td th:text="${flight.sourceCode}"/>
-            <td th:text="${flight.destinationCode}"/>
-            <td th:text="${flight.departureDate}"/>
-            <td th:text="${searchCriteria.typeOfSeat}"/>
+        <tr th:each="flightInfo : ${searchResults}">
+            <td th:text="${flightInfo.flightNumber}"/>
+            <td th:text="${flightInfo.sourceCode}"/>
+            <td th:text="${flightInfo.destinationCode}"/>
+            <td th:text="${flightInfo.departureDate}"/>
+            <td th:text="${flightInfo.typeOfSeat}"/>
+            <td th:text="${flightInfo.price}"/>
         </tr>
         </tbody>
     </table>
-</div>
+</div2>
 
 </body>
 </html>

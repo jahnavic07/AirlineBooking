@@ -1,6 +1,5 @@
 package airline.model;
 
-import java.awt.datatransfer.FlavorListener;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -9,9 +8,9 @@ public class Flight {
     private String sourceCode;
     private String destinationCode;
     private LocalDate departureDate;
-    public List<Seat> seats;
+    public List<TravelClass> seats;
 
-    public Flight(String flightNumber, String sourceCode, String destinationCode, LocalDate departureDate, List<Seat> seats) {
+    public Flight(String flightNumber, String sourceCode, String destinationCode, LocalDate departureDate, List<TravelClass> seats) {
         this.flightNumber = flightNumber;
         this.sourceCode = sourceCode;
         this.destinationCode = destinationCode;
@@ -19,11 +18,11 @@ public class Flight {
         this.seats = seats;
     }
 
-    public List<Seat> getSeats() {
+    public List<TravelClass> getSeats() {
         return this.seats;
     }
 
-    public void setSeats(List<Seat> seats) {
+    public void setSeats(List<TravelClass> seats) {
         this.seats = seats;
     }
 
@@ -54,9 +53,16 @@ public class Flight {
     }
 
     public int seatsAvailable(String travelType) {
-        for (Seat mySeat : seats) {
+        for (TravelClass mySeat : seats) {
             if (mySeat.getTypeOfSeat().equals(travelType))
                 return (mySeat.getAvailableSeats());
+        }
+        return 0;
+    }
+    public double getPrice(String travelType) {
+        for (TravelClass mySeat : seats) {
+            if (mySeat.getTypeOfSeat().equals(travelType))
+                return (mySeat.getPrice());
         }
         return 0;
     }
