@@ -1,3 +1,3 @@
 package airline.model;
 
-public enum TravelType {Business,Economy,First};
+public enum TravelType {BUSINESS,ECONOMY,FIRST};

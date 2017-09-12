@@ -3,16 +3,14 @@ package airline.controller;
 import java.util.*;
 import java.time.LocalDate;
 
-import airline.Services.PriceCalculationService;
+import airline.service.PriceCalculationService;
 import airline.model.SearchResult;
 import airline.repository.CityRepository;
-import airline.repository.FlightRepository;
-import airline.Services.FlightSearchService;
+import airline.service.FlightSearchService;
 import airline.model.SearchCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import airline.model.City;
-import airline.model.Flight;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,6 +51,5 @@ public class FlightController {
         model.addAttribute("today",LocalDate.now().toString());
         return "flightSearch";
     }
-
 
 }
