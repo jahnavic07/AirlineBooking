@@ -32,10 +32,18 @@ public class Flight {
         return destinationCode;
     }
 
-    public int availableSeats(String travelType) {
+    public int getTotalSeats(String travelType) {
         for (TravelClass mySeat : seats) {
             if (mySeat.getTypeOfSeat().equals(travelType))
-                return (mySeat.getTotalSeats()- mySeat.getSeatsBooked());
+                return (mySeat.getTotalSeats());
+        }
+        return 0;
+    }
+
+    public int getSeatsBooked(String travelType) {
+        for (TravelClass mySeat : seats) {
+            if (mySeat.getTypeOfSeat().equals(travelType))
+                return (mySeat.getSeatsBooked());
         }
         return 0;
     }
@@ -48,14 +56,6 @@ public class Flight {
         return 0;
     }
 
-    public double getSeatsFilledPercentage(String travelType) {
-        for (TravelClass mySeat : seats) {
-            if (mySeat.getTypeOfSeat().equals(travelType))
-                return (((double)(mySeat.getSeatsBooked())/mySeat.getTotalSeats())*100);
-        }
-
-        return 0;
-    }
 }
 
 

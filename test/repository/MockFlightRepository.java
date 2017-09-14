@@ -12,8 +12,6 @@ import java.util.List;
 
 public class MockFlightRepository {
 
-    public List<Flight> getFlights() {
-
         List<Flight> flightList = new ArrayList<Flight>();
         List<TravelClass> seatList1 = Arrays.asList(new TravelClass("Boeing 777", TravelType.ECONOMY,100,80,6000),
                 new TravelClass("Boeing 777",TravelType.FIRST,50,20,13000),
@@ -31,18 +29,29 @@ public class MockFlightRepository {
         List<TravelClass> seatList4 = Arrays.asList(new TravelClass("AirBus 321",TravelType.ECONOMY,150,120,5000),
                 new TravelClass("AirBus 321",TravelType.FIRST,60,58,10000));
 
-        Flight flight1 = new Flight("AI123", "HYD", "BLR", LocalDate.of(2017, 9,16),seatList1 );
-        Flight flight2 = new Flight("ET456", "CHN", "DEL",LocalDate.of(2017, 9,15),seatList2);
-        Flight flight3 = new Flight("QA789", "HYD", "BLR",LocalDate.of(2017, 10,10),seatList3);;
-        Flight flight4 = new Flight("BI999", "HYD", "BLR",LocalDate.of(2017, 9,16),seatList4);
+        Flight HydToBlrAI123 = new Flight("AI123", "HYD", "BLR", LocalDate.of(2017, 9,16),seatList1 );
+        Flight ChnToDelET456 = new Flight("ET456", "CHN", "DEL",LocalDate.of(2017, 9,15),seatList2);
+        Flight HydToBlrQA789 = new Flight("QA789", "HYD", "BLR",LocalDate.of(2017, 10,10),seatList3);;
+        Flight HydToBlrBI999 = new Flight("BI999", "HYD", "BLR",LocalDate.of(2017, 9,16),seatList4);
 
-        flightList.add(flight1);
-        flightList.add(flight2);
-        flightList.add(flight3);
-        flightList.add(flight4);
+    public Flight getHydToBlrAI123() {
+        return this.HydToBlrAI123;
+    }
 
-        return flightList;
+    public Flight getChnToDelET456(){
+        return this.ChnToDelET456;
 
     }
 
+    public Flight getHydToBlrQA789(){
+        return this.HydToBlrQA789;
+    }
+
+    public Flight getHydToBlrBI999() {
+        return this.HydToBlrBI999;
+    }
+
+    public List<Flight> getFlightList() {
+        return Arrays.asList(HydToBlrAI123,ChnToDelET456,HydToBlrQA789,HydToBlrBI999);
+    }
 }

@@ -29,14 +29,13 @@ public class FlightTest {
     }
 
     @Test
-    public void shouldGetTheCountOfSeatsAvailableForEconomyClass() {
-        Assert.assertEquals(10, testFlight.availableSeats("ECONOMY"));
+    public void shouldReturnTotalSeatsForFirstClass() {
+        Assert.assertEquals(60, testFlight.getTotalSeats("FIRST"));
     }
 
     @Test
-    public void shouldGetThePercentageOfSeatsBookedForEconomyClass() {
-        Assert.assertEquals(90, testFlight.getSeatsFilledPercentage("ECONOMY"),0.0);
+    public void shouldReturnSeatsBookedForBusinessClass() {
+        Assert.assertEquals(50, testFlight.getTotalSeats("BUSINESS"));
     }
-
 
 }

@@ -19,7 +19,6 @@ public class TravelClass {
         return this.typeOfSeat.toString();
     }
 
-
     public int getTotalSeats() {
         return this.totalSeats;
     }

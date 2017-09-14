@@ -20,9 +20,9 @@ public class PriceCalculator {
 
     }
 
-    static double getEconomyClassRate(Flight myFlight, double basePrice){
+    private static double getEconomyClassRate(Flight myFlight, double basePrice){
 
-        double seatsFilledPercentage = myFlight.getSeatsFilledPercentage("ECONOMY");
+        double seatsFilledPercentage = ((double) myFlight.getSeatsBooked("ECONOMY")/myFlight.getTotalSeats("ECONOMY"))*100;
 
         if(seatsFilledPercentage < 40)
             return basePrice;
@@ -34,7 +34,7 @@ public class PriceCalculator {
         return 0;
     }
 
-    static double getBusinessClassRate(Flight myFlight, double basePrice){
+    private static double getBusinessClassRate(Flight myFlight, double basePrice){
 
         DayOfWeek day = DayOfWeek.from(myFlight.getDepartureDate());
 
@@ -44,9 +44,10 @@ public class PriceCalculator {
             return basePrice;
     }
 
-    static double getFirstClassRate(Flight myFlight, double basePrice){
+    private static double getFirstClassRate(Flight myFlight, double basePrice){
 
-       int daysBeforeDeparture = Period.between(LocalDate.now(),myFlight.getDepartureDate()).getDays();
+     /*  int daysBeforeDeparture = Period.between(LocalDate.now(),myFlight.getDepartureDate()).getDays();*/
+      int daysBeforeDeparture = (int)ChronoUnit.DAYS.between(LocalDate.now(),myFlight.getDepartureDate());
 
        return basePrice*(1 + 0.1*(10-daysBeforeDeparture));
     }

@@ -1,5 +1,7 @@
 package airline.service;
 
+import java.time.Period;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.time.LocalDate;
@@ -23,6 +25,7 @@ public class FlightSearchService {
         List<Flight> filteredFlights =  flightList.stream()
                 .filter(searchByRoute(searchCriteria)) //mandatory
                 .filter(searchByTravelType(searchCriteria))
+                .filter(CheckIfFlightOpenForFirstClassBooking(searchCriteria))
                 .collect(Collectors.toList());
 
         if(searchCriteria.getDepartureDate()!="") { //optional
@@ -44,7 +47,14 @@ public class FlightSearchService {
     }
 
     private static Predicate<Flight> searchByTravelType(SearchCriteria searchCriteria) {
-        return (flight -> (flight.availableSeats(searchCriteria.getTypeOfSeat())>= searchCriteria.getSeatsRequested()));
+        return (flight -> ((flight.getTotalSeats(searchCriteria.getTypeOfSeat())-flight.getSeatsBooked(searchCriteria.getTypeOfSeat()))>= searchCriteria.getSeatsRequested()));
+    }
+
+    private static Predicate<Flight> CheckIfFlightOpenForFirstClassBooking(SearchCriteria searchCriteria) {
+        return (flight -> (((searchCriteria.getTypeOfSeat().equals("BUSINESS")) && (((int) ChronoUnit.DAYS.between(LocalDate.now(),flight.getDepartureDate())<=28))) || (searchCriteria.getTypeOfSeat().equals("ECONOMY")) || (searchCriteria.getTypeOfSeat().equals("FIRST") && ((int) ChronoUnit.DAYS.between(LocalDate.now(),flight.getDepartureDate())<=10))));
+
+
+
     }
 
 

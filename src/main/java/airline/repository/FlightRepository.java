@@ -22,7 +22,7 @@ public class FlightRepository {
                                                     new TravelClass("AirBus 319",TravelType.FIRST,60,20,14000),
                                                     new TravelClass("AirBus 319",TravelType.BUSINESS,40,24,21000));
 
-        List<TravelClass> seatList3 = Arrays.asList(new TravelClass("AirBus 777",TravelType.ECONOMY,150,120,8000),
+        List<TravelClass> seatList3 = Arrays.asList(new TravelClass("AirBus 777",TravelType.ECONOMY,150,149,8000),
                                                     new TravelClass("AirBus 777",TravelType.FIRST,60,58,15000),
                                                     new TravelClass("AirBus 777",TravelType.BUSINESS,50,24,22000));
 
@@ -30,9 +30,9 @@ public class FlightRepository {
                                                      new TravelClass("AirBus 321",TravelType.FIRST,60,58,10000));
 
         Flight flight1 = new Flight("AI123", "HYD", "BLR",LocalDate.of(2017, 9,15),seatList1 );
-        Flight flight2 = new Flight("ET456", "CHN", "DEL",LocalDate.of(2017, 9,15),seatList2);
+        Flight flight2 = new Flight("ET456", "CHN", "DEL",LocalDate.of(2017, 10,18),seatList2);
         Flight flight3 = new Flight("QA789", "HYD", "BLR",LocalDate.of(2017, 9,20),seatList3);;
-        Flight flight4 = new Flight("BI999", "HYD", "BLR",LocalDate.of(2017, 9,23),seatList4);
+        Flight flight4 = new Flight("BI999", "HYD", "BLR",LocalDate.of(2017, 9,28),seatList4);
 
         flightList.add(flight1);
         flightList.add(flight2);
