@@ -40,7 +40,7 @@ public class FlightSearchService {
     }
 
     private static Predicate<Flight> searchByDepartureDate(SearchCriteria searchCriteria) {
-        return (flight -> ((searchCriteria.getDepartureDate() == "") || flight.getDepartureDate().equals(LocalDate.parse(searchCriteria.getDepartureDate()))));
+        return (flight -> ( flight.getDepartureDate().equals(LocalDate.parse(searchCriteria.getDepartureDate()))));
     }
 
     private static Predicate<Flight> searchByTravelType(SearchCriteria searchCriteria) {

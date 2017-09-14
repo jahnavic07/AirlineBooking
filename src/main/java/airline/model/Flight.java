@@ -35,19 +35,27 @@ public class Flight {
     public int availableSeats(String travelType) {
         for (TravelClass mySeat : seats) {
             if (mySeat.getTypeOfSeat().equals(travelType))
-                return (mySeat.getAvailableSeats());
+                return (mySeat.getTotalSeats()- mySeat.getSeatsBooked());
         }
         return 0;
     }
 
-    public double getPrice(String travelType) {
+    public double getBasePrice(String travelType) {
         for (TravelClass mySeat : seats) {
             if (mySeat.getTypeOfSeat().equals(travelType))
-                return (mySeat.getPrice());
+                return (mySeat.getBasePrice());
         }
         return 0;
     }
 
+    public double getSeatsFilledPercentage(String travelType) {
+        for (TravelClass mySeat : seats) {
+            if (mySeat.getTypeOfSeat().equals(travelType))
+                return (((double)(mySeat.getSeatsBooked())/mySeat.getTotalSeats())*100);
+        }
+
+        return 0;
+    }
 }
 
 

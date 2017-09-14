@@ -5,26 +5,31 @@ public class TravelClass {
     TravelType typeOfSeat;
     private int totalSeats;
     private int seatsBooked;
-    double price;
+    double basePrice;
 
     public TravelClass(String flightModel, TravelType typeOfSeat, int totalSeats, int seatsBooked, double price) {
         this.flightModel = flightModel;
         this.typeOfSeat = typeOfSeat;
         this.totalSeats = totalSeats;
         this.seatsBooked = seatsBooked;
-        this.price = price;
+        this.basePrice = price;
     }
 
     public String getTypeOfSeat() {
         return this.typeOfSeat.toString();
     }
 
-    public int getAvailableSeats() {
-        return (totalSeats - seatsBooked);
+
+    public int getTotalSeats() {
+        return this.totalSeats;
     }
 
-    public double getPrice() {
-        return this.price;
+    public int getSeatsBooked() {
+        return this.seatsBooked;
+    }
+
+    public double getBasePrice() {
+        return this.basePrice;
     }
 
     }
